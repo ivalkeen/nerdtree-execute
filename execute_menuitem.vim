@@ -25,7 +25,8 @@ function! NERDTreeExecute()
     exe "silent !gnome-open ".shellescape(path,1)." > /dev/null"
     let ret= v:shell_error
   elseif has("unix") && executable("kfmclient") && g:haskdeinit
-    exec "silent !kfmclient exec ".shellescape(path,1)." > /dev/null"
+    exe "silent !kfmclient exec ".shellescape(path,1)." > /dev/null"
     let ret= v:shell_error
   end
+  redraw!
 endfunction
