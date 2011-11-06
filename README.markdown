@@ -3,7 +3,7 @@ Installation (git submodules)
 
 Run this command from your .vim folder:
 
-git submodule add https://github.com/ivalkeen/nerdtree_plugin
+    git submodule add https://github.com/ivalkeen/nerdtree_plugin
 
 execute menuitem
 =
