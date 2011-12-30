@@ -2,7 +2,7 @@
 
 Plugin for [NERDTree](https://github.com/scrooloose/nerdtree) that provides an execute menu item, that executes system default application for file or directory
 
-## Installation (git submodules)
+## Installation
 
 ### Manual install
 Unzip into your `.vim` directory
