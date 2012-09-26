@@ -21,11 +21,17 @@ function! NERDTreeExecute()
   let treenode = g:NERDTreeFileNode.GetSelected()
   let path = treenode.path.str()
 
+  if has("gui_running")
+    let args = shellescape(path,1)." &"
+  else
+    let args = shellescape(path,1)." > /dev/null"
+  end
+
   if has("unix") && executable("gnome-open") && !g:haskdeinit
-    exe "silent !gnome-open ".shellescape(path,1)." > /dev/null"
+    exe "silent !gnome-open ".args
     let ret= v:shell_error
   elseif has("unix") && executable("kfmclient") && g:haskdeinit
-    exe "silent !kfmclient exec ".shellescape(path,1)." > /dev/null"
+    exe "silent !kfmclient exec ".args
     let ret= v:shell_error
   elseif has("win32") || has("win64")
     exe "silent !start explorer ".shellescape(path,1)
