@@ -19,6 +19,8 @@ call NERDTreeAddMenuItem({
       \ 'callback': 'NERDTreeExecute' })
 
 function! NERDTreeExecute()
+  let l:oldssl=&shellslash
+  set noshellslash
   let treenode = g:NERDTreeFileNode.GetSelected()
   let path = treenode.path.str()
 
@@ -40,5 +42,6 @@ function! NERDTreeExecute()
   elseif has("win32") || has("win64")
     exe "silent !start explorer ".shellescape(path,1)
   end
+  let &shellslash=l:oldssl
   redraw!
 endfunction
