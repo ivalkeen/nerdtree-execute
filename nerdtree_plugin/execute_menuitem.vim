@@ -12,6 +12,7 @@ endif
 let g:loaded_nerdtree_shell_exec_menuitem = 1
 let s:haskdeinit = system("ps -e") =~ 'kdeinit'
 let s:hasdarwin = system("uname -s") =~ 'Darwin'
+let s:haslinux = system("uname -s") =~ 'Linux'
 
 call NERDTreeAddMenuItem({
       \ 'text': 'e(x)ecute',
@@ -38,6 +39,9 @@ function! NERDTreeExecute()
     let ret= v:shell_error
   elseif has("unix") && executable("open") && s:hasdarwin
     exe "silent !open ".args
+    let ret= v:shell_error
+  elseif has("unix") && executable("xdg-open") && s:haslinux
+    exe "silent !xdg-open ".args
     let ret= v:shell_error
   elseif has("win32") || has("win64")
     exe "silent !start explorer ".shellescape(path,1)
