@@ -13,6 +13,8 @@ let g:loaded_nerdtree_shell_exec_menuitem = 1
 let s:haskdeinit = system("ps -e") =~ 'kdeinit'
 let s:hasdarwin = system("uname -s") =~ 'Darwin'
 
+let g:nerdtree_execute_cmd = get(g:, 'nerdtree_execute_cmd', '')
+
 call NERDTreeAddMenuItem({
       \ 'text': 'e(x)ecute',
       \ 'shortcut': 'x',
@@ -30,7 +32,10 @@ function! NERDTreeExecute()
     let args = shellescape(path,1)." > /dev/null"
   end
 
-  if has("unix") && executable("gnome-open") && !s:haskdeinit
+  if !empty(g:nerdtree_execute_cmd) && executable(g:nerdtree_execute_cmd)
+    exe "silent !".g:nerdtree_execute_cmd." ".args
+    let ret= v:shell_error
+  elseif has("unix") && executable("gnome-open") && !s:haskdeinit
     exe "silent !gnome-open ".args
     let ret= v:shell_error
   elseif has("unix") && executable("kde-open") && s:haskdeinit
